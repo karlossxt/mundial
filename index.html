@@ -1,23 +1,21 @@
---- START OF FILE Quiniela_Actualizada.html ---
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiniela Mundial 2026</title>
+    <title>Quiniela Mundial 2026 - Próximos Partidos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
-        .match-card { transition: all 0.2s ease; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen pb-20">
 
     <header class="bg-gradient-to-r from-emerald-600 via-teal-700 to-cyan-800 text-white py-6 px-4 text-center shadow-lg border-b-4 border-emerald-500">
         <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight">🏆 QUINIELA MUNDIAL 2026</h1>
-        <p class="text-xs mt-1 text-teal-100 uppercase tracking-widest font-bold">Fase de Grupos • Dos Jugadores</p>
+        <p class="text-xs mt-1 text-teal-100 uppercase tracking-widest font-bold">Fase de Grupos • Próximas Fechas</p>
     </header>
 
     <main class="max-w-5xl mx-auto px-4 mt-6">
@@ -27,39 +25,41 @@
             <div class="bg-slate-800 border-l-4 border-emerald-500 rounded-lg p-4 shadow-lg flex items-center justify-between">
                 <input type="text" id="name-user1" onchange="updateNames()" 
                        class="bg-transparent border-b border-emerald-500/30 font-bold text-emerald-400 text-lg focus:outline-none w-32">
-                <span id="score-user1" class="text-3xl font-black text-emerald-400">0</span>
+                <div class="text-right">
+                    <span class="block text-[10px] text-slate-400 uppercase">Puntos</span>
+                    <span id="score-user1" class="text-3xl font-black text-emerald-400">0</span>
+                </div>
             </div>
             <div class="bg-slate-800 border-l-4 border-indigo-500 rounded-lg p-4 shadow-lg flex items-center justify-between">
                 <input type="text" id="name-user2" onchange="updateNames()" 
                        class="bg-transparent border-b border-indigo-500/30 font-bold text-indigo-400 text-lg focus:outline-none w-32">
-                <span id="score-user2" class="text-3xl font-black text-indigo-400">0</span>
+                <div class="text-right">
+                    <span class="block text-[10px] text-slate-400 uppercase">Puntos</span>
+                    <span id="score-user2" class="text-3xl font-black text-indigo-400">0</span>
+                </div>
             </div>
         </section>
 
-        <!-- Herramientas de Sincronización (Para pasar de PC a Celular) -->
-        <section class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 mb-6">
-            <h3 class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2">
-                <span>🔄 Sincronizar entre dispositivos</span>
-            </h3>
-            <div class="flex flex-wrap gap-2">
-                <button onclick="exportData()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-2 px-4 rounded-lg transition">
-                    📤 Copiar mis datos (Exportar)
-                </button>
-                <button onclick="importData()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-2 px-4 rounded-lg transition">
-                    📥 Pegar datos (Importar)
-                </button>
+        <!-- Sincronización -->
+        <section class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 mb-6 flex flex-wrap gap-3 items-center justify-between">
+            <div>
+                <h3 class="text-xs font-bold text-slate-300 uppercase">🔄 Sincronizar dispositivos</h3>
+                <p class="text-[10px] text-slate-500 italic">Exporta en PC y pega en Celular para ver tus cambios.</p>
             </div>
-            <p class="text-[10px] text-slate-500 mt-2">* Como no hay base de datos, usa esto para enviarte tus apuestas por WhatsApp/Email y pegarlas en otro equipo.</p>
+            <div class="flex gap-2">
+                <button onclick="exportData()" class="bg-slate-700 hover:bg-emerald-600 text-white text-[10px] font-bold py-2 px-3 rounded transition">📤 EXPORTAR</button>
+                <button onclick="importData()" class="bg-slate-700 hover:bg-indigo-600 text-white text-[10px] font-bold py-2 px-3 rounded transition">📥 IMPORTAR</button>
+            </div>
         </section>
 
         <!-- Control Admin -->
         <section class="bg-slate-800 border border-slate-700 rounded-xl p-4 mb-8 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <span class="text-amber-500">⚙️</span>
-                <span class="text-sm font-medium">Modo Administrador</span>
+                <span class="text-sm font-medium">Modo Administrador (Resultados Reales)</span>
             </div>
-            <button id="toggle-admin" onclick="toggleAdminMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-600 transition">
-                <span id="toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-1"></span>
+            <button id="toggle-admin" onclick="toggleAdminMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-600 transition duration-300">
+                <span id="toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition duration-300 translate-x-1"></span>
             </button>
         </section>
 
@@ -68,16 +68,35 @@
 
     <script>
         const matchesData = [
-            { id: 1, date: "Jueves, 18 de Junio, 2026", time: "EN VIVO", venue: "BC Place, Vancouver", teamA: "Canadá", flagA: "🇨🇦", teamB: "Qatar", flagB: "🇶🇦" },
-            { id: 2, date: "Jueves, 18 de Junio, 2026", time: "7:00 PM", venue: "Estadio Akron, Guadalajara", teamA: "México", flagA: "🇲🇽", teamB: "Corea del Sur", flagB: "🇰🇷" },
-            { id: 3, date: "Jueves, 18 de Junio, 2026", time: "Finalizado", venue: "Atlanta, EUA", teamA: "Chequia", flagA: "🇨🇿", teamB: "Sudáfrica", flagB: "🇿🇦", defaultRealA: 1, defaultRealB: 1 },
-            { id: 4, date: "Jueves, 18 de Junio, 2026", time: "Finalizado", venue: "SoFi Stadium, California", teamA: "Suiza", flagA: "🇨🇭", teamB: "Bosnia", flagB: "🇧🇦", defaultRealA: 4, defaultRealB: 1 },
-            { id: 5, date: "Viernes, 19 de Junio, 2026", time: "1:00 PM", venue: "Lumen Field, Seattle", teamA: "Estados Unidos", flagA: "🇺🇸", teamB: "Australia", flagB: "🇦🇺" },
-            { id: 6, date: "Viernes, 19 de Junio, 2026", time: "4:00 PM", venue: "Gillette Stadium, Foxborough", teamA: "Escocia", flagA: "🏴󠁧󠁢󠁳🇪", teamB: "Marruecos", flagB: "🇲🇦" },
-            { id: 7, date: "Viernes, 19 de Junio, 2026", time: "6:30 PM", venue: "Lincoln Financial Field", teamA: "Brasil", flagA: "🇧🇷", teamB: "Haití", flagB: "🇭🇹" },
-            { id: 8, date: "Viernes, 19 de Junio, 2026", time: "9:00 PM", venue: "Levi's Stadium, Santa Clara", teamA: "Turquía", flagA: "🇹🇷", teamB: "Paraguay", flagB: "🇵🇾" },
-            { id: 25, date: "Miércoles, 24 de Junio, 2026", time: "1:00 PM", venue: "Seattle, EUA", teamA: "Bosnia", flagA: "🇧🇦", teamB: "Qatar", flagB: "🇶🇦" },
-            { id: 26, date: "Miércoles, 24 de Junio, 2026", time: "1:00 PM", venue: "Vancouver, Canadá", teamA: "Suiza", flagA: "🇨🇭", teamB: "Canadá", flagB: "🇨🇦" }
+            // Martes 23 de junio
+            { id: 21, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Portugal", flagA: "🇵🇹", teamB: "Uzbekistán", flagB: "🇺🇿" },
+            { id: 22, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Inglaterra", flagA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", teamB: "Ghana", flagB: "🇬🇭" },
+            { id: 23, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Panamá", flagA: "🇵🇦", teamB: "Croacia", flagB: "🇭🇷" },
+            { id: 24, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Colombia", flagA: "🇨🇴", teamB: "RD Congo", flagB: "🇨🇩" },
+            
+            // Miércoles 24 de junio
+            { id: 25, date: "Miércoles 24 de Junio", group: "Grupo B", teamA: "Suiza", flagA: "🇨🇭", teamB: "Canadá", flagB: "🇨🇦" },
+            { id: 26, date: "Miércoles 24 de Junio", group: "Grupo B", teamA: "Bosnia y Herz.", flagA: "🇧🇦", teamB: "Catar", flagB: "🇶🇦" },
+            { id: 27, date: "Miércoles 24 de Junio", group: "Grupo C", teamA: "Marruecos", flagA: "🇲🇦", teamB: "Haití", flagB: "🇭🇹" },
+            { id: 28, date: "Miércoles 24 de Junio", group: "Grupo C", teamA: "Escocia", flagA: "🏴󠁧󠁢󠁳🇪", teamB: "Brasil", flagB: "🇧🇷" },
+            { id: 29, date: "Miércoles 24 de Junio", group: "Grupo A", teamA: "Sudáfrica", flagA: "🇿🇦", teamB: "Corea del Sur", flagB: "🇰🇷" },
+            { id: 30, date: "Miércoles 24 de Junio", group: "Grupo A", teamA: "Chequia", flagA: "🇨🇿", teamB: "México", flagB: "🇲🇽" },
+
+            // Jueves 25 de junio
+            { id: 31, date: "Jueves 25 de Junio", group: "Grupo E", teamA: "Costa de Marfil", flagA: "🇨🇮", teamB: "Curazao", flagB: "🇨🇼" },
+            { id: 32, date: "Jueves 25 de Junio", group: "Grupo E", teamA: "Alemania", flagA: "🇩🇪", teamB: "Ecuador", flagB: "🇪🇨" },
+            { id: 33, date: "Jueves 25 de Junio", group: "Grupo F", teamA: "Túnez", flagA: "🇹🇳", teamB: "Países Bajos", flagB: "🇳🇱" },
+            { id: 34, date: "Jueves 25 de Junio", group: "Grupo F", teamA: "Japón", flagA: "🇯🇵", teamB: "Suecia", flagB: "🇸🇪" },
+            { id: 35, date: "Jueves 25 de Junio", group: "Grupo D", teamA: "Turquía", flagA: "🇹🇷", teamB: "Estados Unidos", flagB: "🇺🇸" },
+            { id: 36, date: "Jueves 25 de Junio", group: "Grupo D", teamA: "Paraguay", flagA: "🇵🇾", teamB: "Australia", flagB: "🇦🇺" },
+
+            // Viernes 26 de junio
+            { id: 37, date: "Viernes 26 de Junio", group: "Grupo I", teamA: "Noruega", flagA: "🇳🇴", teamB: "Francia", flagB: "🇫🇷" },
+            { id: 38, date: "Viernes 26 de Junio", group: "Grupo I", teamA: "Senegal", flagA: "🇸🇳", teamB: "Irak", flagB: "🇮🇶" },
+            { id: 39, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Cabo Verde", flagA: "🇨🇻", teamB: "Arabia Saudita", flagB: "🇸🇦" },
+            { id: 40, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Uruguay", flagA: "🇺🇾", teamB: "España", flagB: "🇪🇸" },
+            { id: 41, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Nueva Zelanda", flagA: "🇳🇿", teamB: "Bélgica", flagB: "🇧🇪" },
+            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" }
         ];
 
         let state = {
@@ -87,21 +106,11 @@
             realResults: {}
         };
 
-        function save() {
-            localStorage.setItem('quiniela_v2', JSON.stringify(state));
-        }
+        function save() { localStorage.setItem('quiniela_2026_v3', JSON.stringify(state)); }
 
         function load() {
-            const saved = localStorage.getItem('quiniela_v2');
+            const saved = localStorage.getItem('quiniela_2026_v3');
             if (saved) state = JSON.parse(saved);
-
-            // Cargar resultados por defecto si no existen
-            matchesData.forEach(m => {
-                if (m.defaultRealA !== undefined && !state.realResults[m.id]) {
-                    state.realResults[m.id] = { A: m.defaultRealA, B: m.defaultRealB };
-                }
-            });
-
             document.getElementById('name-user1').value = state.userNames.user1;
             document.getElementById('name-user2').value = state.userNames.user2;
             updateAdminUI();
@@ -116,9 +125,7 @@
         }
 
         function handleInput(matchId, user, team, val) {
-            if (!state.predictions[matchId]) {
-                state.predictions[matchId] = { user1: { A: null, B: null }, user2: { A: null, B: null } };
-            }
+            if (!state.predictions[matchId]) state.predictions[matchId] = { user1: { A: null, B: null }, user2: { A: null, B: null } };
             state.predictions[matchId][user][team] = val === "" ? null : parseInt(val);
             save();
             updateScores();
@@ -142,7 +149,10 @@
                         s2 += calcPts(pred.user2, real, m.id, 2);
                     }
                     const summary = document.getElementById(`res-${m.id}`);
-                    if (summary) summary.innerText = `Final: ${real.A} - ${real.B}`;
+                    if (summary) {
+                        summary.innerText = `REAL: ${real.A} - ${real.B}`;
+                        summary.className = "text-[10px] font-bold text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/30";
+                    }
                 }
             });
             document.getElementById('score-user1').innerText = s1;
@@ -150,8 +160,8 @@
         }
 
         function calcPts(p, r, mid, uNum) {
-            let pts = 0;
             if (p.A === null || p.B === null) return 0;
+            let pts = 0;
             if (p.A === r.A && p.B === r.B) pts = 3;
             else {
                 const pW = p.A > p.B ? 'A' : (p.A < p.B ? 'B' : 'E');
@@ -161,7 +171,7 @@
             const el = document.getElementById(`pts-u${uNum}-${mid}`);
             if (el) {
                 el.innerText = pts === 3 ? "🎯 +3" : (pts === 1 ? "👍 +1" : "❌ 0");
-                el.className = `text-[10px] font-bold px-1.5 rounded ${pts === 3 ? 'bg-green-500/20 text-green-400' : (pts === 1 ? 'bg-blue-500/20 text-blue-400' : 'bg-red-500/20 text-red-400')}`;
+                el.className = `text-[10px] font-black px-2 py-0.5 rounded mt-1 ${pts === 3 ? 'bg-emerald-500/20 text-emerald-400' : (pts === 1 ? 'bg-blue-500/20 text-blue-400' : 'bg-rose-500/20 text-rose-400')}`;
             }
             return pts;
         }
@@ -186,27 +196,25 @@
         }
 
         function exportData() {
-            const data = btoa(JSON.stringify(state));
+            const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
             navigator.clipboard.writeText(data);
-            alert("¡Datos copiados al portapapeles! Pégalos en tu otro dispositivo usando el botón 'Importar'.");
+            alert("¡Código de respaldo copiado! Pégalo en tu otro dispositivo.");
         }
 
         function importData() {
-            const data = prompt("Pega aquí el código que exportaste desde el otro dispositivo:");
+            const data = prompt("Pega el código de exportación aquí:");
             if (data) {
                 try {
-                    state = JSON.parse(atob(data));
+                    state = JSON.parse(decodeURIComponent(escape(atob(data))));
                     save();
                     location.reload();
-                } catch (e) { alert("Código inválido."); }
+                } catch (e) { alert("Error: Código inválido."); }
             }
         }
 
         function render() {
             const container = document.getElementById('matches-container');
             container.innerHTML = '';
-            
-            // Agrupar por fecha
             const groups = {};
             matchesData.forEach(m => {
                 if (!groups[m.date]) groups[m.date] = [];
@@ -214,64 +222,62 @@
             });
 
             for (const date in groups) {
-                let html = `<div class="mb-8"><h2 class="text-sm font-bold text-slate-500 mb-4 border-b border-slate-800 pb-2 uppercase tracking-widest">${date}</h2><div class="grid gap-4">`;
+                let html = `<div class="mb-10"><h2 class="text-sm font-black text-emerald-500 mb-4 border-b border-slate-700 pb-2 uppercase tracking-tighter flex items-center gap-2"><span>📅</span> ${date}</h2><div class="grid gap-4">`;
                 
                 groups[date].forEach(m => {
                     const p = state.predictions[m.id] || { user1: { A: '', B: '' }, user2: { A: '', B: '' } };
                     const r = state.realResults[m.id] || { A: '', B: '' };
                     
                     html += `
-                        <div class="bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-700/50">
-                            <div class="flex justify-between items-center mb-3">
-                                <span class="text-[10px] text-slate-500">${m.time} • ${m.venue}</span>
-                                <span id="res-${m.id}" class="text-[10px] font-bold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded"></span>
+                        <div class="bg-slate-800 rounded-xl p-4 shadow-md border border-slate-700/50 relative overflow-hidden">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-900 px-2 py-0.5 rounded">${m.group}</span>
+                                <div id="res-${m.id}"></div>
                             </div>
                             
-                            <div class="flex flex-col md:flex-row gap-4 items-center">
+                            <div class="flex flex-col md:flex-row gap-6 items-center">
                                 <!-- Equipos -->
-                                <div class="flex items-center justify-center gap-3 w-full md:w-1/3">
-                                    <div class="text-right w-1/2">
-                                        <div class="text-lg">${m.flagA}</div>
-                                        <div class="text-xs font-bold truncate">${m.teamA}</div>
+                                <div class="flex items-center justify-center gap-4 w-full md:w-1/3">
+                                    <div class="text-center w-1/2">
+                                        <div class="text-3xl mb-1">${m.flagA}</div>
+                                        <div class="text-xs font-black truncate uppercase tracking-tighter">${m.teamA}</div>
                                     </div>
-                                    <div class="text-slate-600 font-black text-xs italic">VS</div>
-                                    <div class="text-left w-1/2">
-                                        <div class="text-lg">${m.flagB}</div>
-                                        <div class="text-xs font-bold truncate">${m.teamB}</div>
+                                    <div class="text-slate-600 font-black text-xs">VS</div>
+                                    <div class="text-center w-1/2">
+                                        <div class="text-3xl mb-1">${m.flagB}</div>
+                                        <div class="text-xs font-black truncate uppercase tracking-tighter">${m.teamB}</div>
                                     </div>
                                 </div>
 
                                 <!-- Predicciones -->
-                                <div class="flex gap-2 w-full md:w-2/3 justify-center sm:justify-end">
+                                <div class="flex gap-3 w-full md:w-2/3 justify-center md:justify-end">
                                     <!-- User 1 -->
-                                    <div class="bg-slate-900/50 p-2 rounded-lg border border-emerald-500/20 flex flex-col items-center">
-                                        <span class="text-[9px] font-bold text-emerald-500 uppercase mb-1">${state.userNames.user1}</span>
+                                    <div class="bg-slate-900/80 p-3 rounded-xl border-t-2 border-emerald-500 w-24 flex flex-col items-center">
+                                        <span class="text-[9px] font-black text-emerald-400 uppercase mb-2 truncate w-full text-center">${state.userNames.user1}</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" value="${p.user1.A ?? ''}" oninput="handleInput(${m.id},'user1','A',this.value)" class="w-8 h-8 bg-slate-800 border border-slate-600 rounded text-center text-sm font-bold focus:border-emerald-500 outline-none">
-                                            <span class="text-slate-600">:</span>
-                                            <input type="number" value="${p.user1.B ?? ''}" oninput="handleInput(${m.id},'user1','B',this.value)" class="w-8 h-8 bg-slate-800 border border-slate-600 rounded text-center text-sm font-bold focus:border-emerald-500 outline-none">
+                                            <input type="number" value="${p.user1.A ?? ''}" oninput="handleInput(${m.id},'user1','A',this.value)" class="w-8 h-9 bg-slate-800 border border-slate-600 rounded text-center text-sm font-black focus:border-emerald-500 outline-none text-emerald-400">
+                                            <input type="number" value="${p.user1.B ?? ''}" oninput="handleInput(${m.id},'user1','B',this.value)" class="w-8 h-9 bg-slate-800 border border-slate-600 rounded text-center text-sm font-black focus:border-emerald-500 outline-none text-emerald-400">
                                         </div>
-                                        <div id="pts-u1-${m.id}" class="mt-1 min-h-[14px]"></div>
+                                        <div id="pts-u1-${m.id}"></div>
                                     </div>
                                     <!-- User 2 -->
-                                    <div class="bg-slate-900/50 p-2 rounded-lg border border-indigo-500/20 flex flex-col items-center">
-                                        <span class="text-[9px] font-bold text-indigo-500 uppercase mb-1">${state.userNames.user2}</span>
+                                    <div class="bg-slate-900/80 p-3 rounded-xl border-t-2 border-indigo-500 w-24 flex flex-col items-center">
+                                        <span class="text-[9px] font-black text-indigo-400 uppercase mb-2 truncate w-full text-center">${state.userNames.user2}</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" value="${p.user2.A ?? ''}" oninput="handleInput(${m.id},'user2','A',this.value)" class="w-8 h-8 bg-slate-800 border border-slate-600 rounded text-center text-sm font-bold focus:border-indigo-500 outline-none">
-                                            <span class="text-slate-600">:</span>
-                                            <input type="number" value="${p.user2.B ?? ''}" oninput="handleInput(${m.id},'user2','B',this.value)" class="w-8 h-8 bg-slate-800 border border-slate-600 rounded text-center text-sm font-bold focus:border-indigo-500 outline-none">
+                                            <input type="number" value="${p.user2.A ?? ''}" oninput="handleInput(${m.id},'user2','A',this.value)" class="w-8 h-9 bg-slate-800 border border-slate-600 rounded text-center text-sm font-black focus:border-indigo-500 outline-none text-indigo-400">
+                                            <input type="number" value="${p.user2.B ?? ''}" oninput="handleInput(${m.id},'user2','B',this.value)" class="w-8 h-9 bg-slate-800 border border-slate-600 rounded text-center text-sm font-black focus:border-indigo-500 outline-none text-indigo-400">
                                         </div>
-                                        <div id="pts-u2-${m.id}" class="mt-1 min-h-[14px]"></div>
+                                        <div id="pts-u2-${m.id}"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Admin Panel -->
-                            <div class="${state.adminMode ? 'flex' : 'hidden'} mt-4 pt-3 border-t border-slate-700 items-center justify-between">
-                                <span class="text-[10px] font-bold text-amber-500">RESULTADO REAL:</span>
+                            <!-- Panel Admin -->
+                            <div class="${state.adminMode ? 'flex' : 'hidden'} mt-4 pt-3 border-t border-dashed border-slate-700 items-center justify-between">
+                                <span class="text-[10px] font-black text-amber-500 uppercase tracking-widest">Resultado Real:</span>
                                 <div class="flex gap-1">
-                                    <input type="number" value="${r.A ?? ''}" oninput="handleReal(${m.id},'A',this.value)" class="w-8 h-8 bg-amber-500/10 border border-amber-500/50 rounded text-center text-amber-500 text-sm font-bold outline-none">
-                                    <input type="number" value="${r.B ?? ''}" oninput="handleReal(${m.id},'B',this.value)" class="w-8 h-8 bg-amber-500/10 border border-amber-500/50 rounded text-center text-amber-500 text-sm font-bold outline-none">
+                                    <input type="number" placeholder="A" value="${r.A ?? ''}" oninput="handleReal(${m.id},'A',this.value)" class="w-8 h-8 bg-amber-500/10 border border-amber-500/50 rounded text-center text-amber-500 text-sm font-black outline-none">
+                                    <input type="number" placeholder="B" value="${r.B ?? ''}" oninput="handleReal(${m.id},'B',this.value)" class="w-8 h-8 bg-amber-500/10 border border-amber-500/50 rounded text-center text-amber-500 text-sm font-black outline-none">
                                 </div>
                             </div>
                         </div>
