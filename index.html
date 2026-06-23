@@ -9,9 +9,25 @@
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
+        /* Animación suave para el aviso de guardado */
+        #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen pb-20">
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen pb-24">
+
+    <!-- AVISO DE GUARDADO (Toast) -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] bg-emerald-500 text-white px-6 py-2 rounded-full font-bold shadow-2xl opacity-0 pointer-events-none transform -translate-y-4">
+        ✅ Marcadores Guardados
+    </div>
+
+    <!-- BOTÓN FLOTANTE GUARDAR -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="manualSave()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 px-6 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center gap-3 transform active:scale-95 transition-all border-b-4 border-emerald-800">
+            <span class="text-xl">💾</span> 
+            <span class="hidden sm:inline">GUARDAR MARCADORES</span>
+            <span class="sm:hidden">GUARDAR</span>
+        </button>
+    </div>
 
     <header class="bg-gradient-to-r from-emerald-600 via-teal-700 to-cyan-800 text-white py-6 px-4 text-center shadow-lg border-b-4 border-emerald-500">
         <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight">🏆 QUINIELA MUNDIAL 2026</h1>
@@ -106,7 +122,21 @@
             realResults: {}
         };
 
-        function save() { localStorage.setItem('quiniela_2026_v3', JSON.stringify(state)); }
+        function save() { 
+            localStorage.setItem('quiniela_2026_v3', JSON.stringify(state)); 
+        }
+
+        // FUNCIÓN DEL BOTÓN GUARDAR
+        function manualSave() {
+            save();
+            const toast = document.getElementById('toast');
+            toast.style.opacity = "1";
+            toast.style.transform = "translate(-50%, 0)";
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translate(-50%, -20px)";
+            }, 2000);
+        }
 
         function load() {
             const saved = localStorage.getItem('quiniela_2026_v3');
