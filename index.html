@@ -75,7 +75,195 @@
         <div id="matches-container" class="space-y-8"></div>
     </main>
 
-    <script>
+    <!-- SCRIPT ÚNICO TIPO MÓDULO -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import {
+          getFirestore, doc, getDoc, setDoc
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quiniela Mundial 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        #toast { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen pb-24">
+
+    <!-- AVISO DE GUARDADO -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] bg-emerald-500 text-white px-6 py-2 rounded-full font-bold shadow-2xl opacity-0 pointer-events-none transform -translate-y-4">
+        ✅ Marcadores Guardados
+    </div>
+
+    <!-- BOTÓN FLOTANTE GUARDAR -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="manualSave()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 px-6 rounded-2xl shadow-xl flex items-center gap-3 transform active:scale-95 transition-all border-b-4 border-emerald-800">
+            <span>💾</span> 
+            <span class="hidden sm:inline">GUARDAR MARCADORES</span>
+            <span class="sm:hidden">GUARDAR</span>
+        </button>
+    </div>
+
+    <header class="bg-gradient-to-r from-emerald-600 via-teal-700 to-cyan-800 text-white py-6 px-4 text-center shadow-lg border-b-4 border-emerald-500">
+        <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight uppercase">Quiniela 2026</h1>
+        <p class="text-xs mt-1 text-teal-100 font-bold opacity-80">FASE DE GRUPOS • 23 AL 26 DE JUNIO</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 mt-6">
+        
+        <!-- Marcador de Puntos -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-slate-800 border-l-4 border-emerald-500 rounded-lg p-4 flex items-center justify-between">
+                <input type="text" id="name-user1" onchange="updateNames()" class="bg-transparent border-b border-emerald-500/20 font-bold text-emerald-400 text-lg focus:outline-none w-32">
+                <div class="text-right">
+                    <span class="block text-[10px] text-slate-500 font-bold uppercase">Puntos</span>
+                    <span id="score-user1" class="text-3xl font-black text-emerald-400">0</span>
+                </div>
+            </div>
+            <div class="bg-slate-800 border-l-4 border-indigo-500 rounded-lg p-4 flex items-center justify-between">
+                <input type="text" id="name-user2" onchange="updateNames()" class="bg-transparent border-b border-indigo-500/20 font-bold text-indigo-400 text-lg focus:outline-none w-32">
+                <div class="text-right">
+                    <span class="block text-[10px] text-slate-500 font-bold uppercase">Puntos</span>
+                    <span id="score-user2" class="text-3xl font-black text-indigo-400">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sincronización -->
+        <section class="bg-slate-800/40 border border-slate-700 rounded-xl p-4 mb-6 flex flex-wrap gap-3 items-center justify-between">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">
+                Sincronizar entre dispositivos
+            </div>
+            <div class="flex gap-2">
+                <button onclick="exportData()" class="bg-slate-700 hover:bg-slate-600 text-[9px] font-bold py-2 px-3 rounded">EXPORTAR</button>
+                <button onclick="importData()" class="bg-slate-700 hover:bg-slate-600 text-[9px] font-bold py-2 px-3 rounded">IMPORTAR</button>
+            </div>
+        </section>
+
+        <!-- Modo Administrador -->
+        <section class="bg-slate-800 border border-slate-700 rounded-xl p-4 mb-8 flex items-center justify-between">
+            <span class="text-sm font-bold text-slate-300">Modo Admin (Resultados Reales)</span>
+            <button id="toggle-admin" onclick="toggleAdminMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-600 transition">
+                <span id="toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-1"></span>
+            </button>
+        </section>
+
+        <div id="matches-container" class="space-y-8"></div>
+    </main>
+
+    <!-- SCRIPT ÚNICO TIPO MÓDULO -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import {
+          getFirestore, doc, getDoc, setDoc
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quiniela Mundial 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        #toast { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen pb-24">
+
+    <!-- AVISO DE GUARDADO -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] bg-emerald-500 text-white px-6 py-2 rounded-full font-bold shadow-2xl opacity-0 pointer-events-none transform -translate-y-4">
+        ✅ Marcadores Guardados
+    </div>
+
+    <!-- BOTÓN FLOTANTE GUARDAR -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="manualSave()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 px-6 rounded-2xl shadow-xl flex items-center gap-3 transform active:scale-95 transition-all border-b-4 border-emerald-800">
+            <span>💾</span> 
+            <span class="hidden sm:inline">GUARDAR MARCADORES</span>
+            <span class="sm:hidden">GUARDAR</span>
+        </button>
+    </div>
+
+    <header class="bg-gradient-to-r from-emerald-600 via-teal-700 to-cyan-800 text-white py-6 px-4 text-center shadow-lg border-b-4 border-emerald-500">
+        <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight uppercase">Quiniela 2026</h1>
+        <p class="text-xs mt-1 text-teal-100 font-bold opacity-80">FASE DE GRUPOS • 23 AL 26 DE JUNIO</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 mt-6">
+        
+        <!-- Marcador de Puntos -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-slate-800 border-l-4 border-emerald-500 rounded-lg p-4 flex items-center justify-between">
+                <input type="text" id="name-user1" onchange="updateNames()" class="bg-transparent border-b border-emerald-500/20 font-bold text-emerald-400 text-lg focus:outline-none w-32">
+                <div class="text-right">
+                    <span class="block text-[10px] text-slate-500 font-bold uppercase">Puntos</span>
+                    <span id="score-user1" class="text-3xl font-black text-emerald-400">0</span>
+                </div>
+            </div>
+            <div class="bg-slate-800 border-l-4 border-indigo-500 rounded-lg p-4 flex items-center justify-between">
+                <input type="text" id="name-user2" onchange="updateNames()" class="bg-transparent border-b border-indigo-500/20 font-bold text-indigo-400 text-lg focus:outline-none w-32">
+                <div class="text-right">
+                    <span class="block text-[10px] text-slate-500 font-bold uppercase">Puntos</span>
+                    <span id="score-user2" class="text-3xl font-black text-indigo-400">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sincronización -->
+        <section class="bg-slate-800/40 border border-slate-700 rounded-xl p-4 mb-6 flex flex-wrap gap-3 items-center justify-between">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">
+                Sincronizar entre dispositivos
+            </div>
+            <div class="flex gap-2">
+                <button onclick="exportData()" class="bg-slate-700 hover:bg-slate-600 text-[9px] font-bold py-2 px-3 rounded">EXPORTAR</button>
+                <button onclick="importData()" class="bg-slate-700 hover:bg-slate-600 text-[9px] font-bold py-2 px-3 rounded">IMPORTAR</button>
+            </div>
+        </section>
+
+        <!-- Modo Administrador -->
+        <section class="bg-slate-800 border border-slate-700 rounded-xl p-4 mb-8 flex items-center justify-between">
+            <span class="text-sm font-bold text-slate-300">Modo Admin (Resultados Reales)</span>
+            <button id="toggle-admin" onclick="toggleAdminMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-600 transition">
+                <span id="toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-1"></span>
+            </button>
+        </section>
+
+        <div id="matches-container" class="space-y-8"></div>
+    </main>
+
+    <!-- SCRIPT ÚNICO TIPO MÓDULO -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import {
+          getFirestore, doc, getDoc, setDoc
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBBTCdM3rb8TB3dJMmzPy4VWkVqo-nclW0", // ⚠️ Recuerda poner tu API Key aquí
+          authDomain: "mundial-c69de.firebaseapp.com",
+          projectId: "mundial-c69de",
+          storageBucket: "mundial-c69de.firebasestorage.app",
+          messagingSenderId: "962037207679",
+          appId: "1:962037207679:web:d6c14bb85331619104654a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         const matchesData = [
             { id: 21, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Portugal", flagA: "🇵🇹", teamB: "Uzbekistán", flagB: "🇺🇿" },
             { id: 22, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Inglaterra", flagA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", teamB: "Ghana", flagB: "🇬🇭" },
@@ -103,9 +291,16 @@
 
         let state = { adminMode: false, userNames: { user1: "Usuario 1", user2: "Usuario 2" }, predictions: {}, realResults: {} };
 
-        function save() { localStorage.setItem('quiniela_final_v1', JSON.stringify(state)); }
+        async function save() {
+            try {
+                await setDoc(doc(db, "quiniela", "principal"), state);
+            } catch (error) {
+                console.error("Error guardando en Firebase:", error);
+            }
+        }
 
-        function manualSave() {
+        // Exponer funciones al objeto Window para que el HTML pueda usarlas
+        window.manualSave = function() {
             save();
             const toast = document.getElementById('toast');
             toast.style.opacity = "1";
@@ -113,34 +308,66 @@
             setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translate(-50%, -20px)"; }, 2000);
         }
 
-        function load() {
-            const saved = localStorage.getItem('quiniela_final_v1');
-            if (saved) state = JSON.parse(saved);
-            document.getElementById('name-user1').value = state.userNames.user1;
-            document.getElementById('name-user2').value = state.userNames.user2;
-            updateAdminUI();
-            render();
-        }
-
-        function updateNames() {
+        window.updateNames = function() {
             state.userNames.user1 = document.getElementById('name-user1').value;
             state.userNames.user2 = document.getElementById('name-user2').value;
             save();
             render(); 
         }
 
-        function handleInput(matchId, user, team, val) {
+        window.handleInput = function(matchId, user, team, val) {
             if (!state.predictions[matchId]) state.predictions[matchId] = { user1: { A: null, B: null }, user2: { A: null, B: null } };
             state.predictions[matchId][user][team] = val === "" ? null : parseInt(val);
             save();
             updateScores();
         }
 
-        function handleReal(matchId, team, val) {
+        window.handleReal = function(matchId, team, val) {
             if (!state.realResults[matchId]) state.realResults[matchId] = { A: null, B: null };
             state.realResults[matchId][team] = val === "" ? null : parseInt(val);
             save();
             updateScores();
+        }
+
+        window.toggleAdminMode = function() {
+            state.adminMode = !state.adminMode;
+            updateAdminUI();
+            save();
+            render();
+        }
+
+        window.exportData = function() {
+            const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+            navigator.clipboard.writeText(data);
+            alert("¡Código copiado al portapapeles!");
+        }
+
+        window.importData = function() {
+            const data = prompt("Pega el código de exportación:");
+            if (data) {
+                try { 
+                    state = JSON.parse(decodeURIComponent(escape(atob(data)))); 
+                    save(); 
+                    location.reload(); 
+                }
+                catch (e) { alert("Código no válido"); }
+            }
+        }
+
+        async function load() {
+            try {
+                const snap = await getDoc(doc(db, "quiniela", "principal"));
+                if (snap.exists()) {
+                    state = snap.data();
+                }
+                document.getElementById('name-user1').value = state.userNames.user1;
+                document.getElementById('name-user2').value = state.userNames.user2;
+                updateAdminUI();
+                render();
+            } catch (error) {
+                console.error("Error cargando de Firebase:", error);
+                render(); // Renderizar aunque falle la carga
+            }
         }
 
         function updateScores() {
@@ -162,7 +389,7 @@
         }
 
         function calcPts(p, r, mid, uNum) {
-            if (p.A === null || p.B === null) return 0;
+            if (!p || p.A === null || p.B === null) return 0;
             let pts = 0;
             if (p.A === r.A && p.B === r.B) pts = 3;
             else {
@@ -178,31 +405,15 @@
             return pts;
         }
 
-        function toggleAdminMode() {
-            state.adminMode = !state.adminMode;
-            updateAdminUI();
-            save();
-            render();
-        }
-
         function updateAdminUI() {
             const dot = document.getElementById('toggle-dot');
             const btn = document.getElementById('toggle-admin');
-            if (state.adminMode) { dot.classList.replace('translate-x-1', 'translate-x-6'); btn.classList.replace('bg-slate-600', 'bg-amber-600'); }
-            else { dot.classList.replace('translate-x-6', 'translate-x-1'); btn.classList.replace('bg-amber-600', 'bg-slate-600'); }
-        }
-
-        function exportData() {
-            const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
-            navigator.clipboard.writeText(data);
-            alert("¡Código copiado al portapapeles!");
-        }
-
-        function importData() {
-            const data = prompt("Pega el código de exportación:");
-            if (data) {
-                try { state = JSON.parse(decodeURIComponent(escape(atob(data)))); save(); location.reload(); }
-                catch (e) { alert("Código no válido"); }
+            if (state.adminMode) { 
+                dot.classList.replace('translate-x-1', 'translate-x-6'); 
+                btn.classList.replace('bg-slate-600', 'bg-amber-600'); 
+            } else { 
+                dot.classList.replace('translate-x-6', 'translate-x-1'); 
+                btn.classList.replace('bg-amber-600', 'bg-slate-600'); 
             }
         }
 
@@ -239,16 +450,16 @@
                                     <div class="bg-slate-900 p-2 rounded-lg border-t-2 border-emerald-500 flex flex-col items-center min-w-[70px]">
                                         <span class="text-[8px] font-bold text-emerald-400 mb-1 truncate w-16 text-center">${state.userNames.user1}</span>
                                         <div class="flex gap-1">
-                                            <input type="number" value="${p.user1.A ?? ''}" oninput="handleInput(${m.id},'user1','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
-                                            <input type="number" value="${p.user1.B ?? ''}" oninput="handleInput(${m.id},'user1','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
+                                            <input type="number" value="${p.user1?.A ?? ''}" oninput="handleInput(${m.id},'user1','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
+                                            <input type="number" value="${p.user1?.B ?? ''}" oninput="handleInput(${m.id},'user1','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
                                         </div>
                                         <div id="pts-u1-${m.id}"></div>
                                     </div>
                                     <div class="bg-slate-900 p-2 rounded-lg border-t-2 border-indigo-500 flex flex-col items-center min-w-[70px]">
                                         <span class="text-[8px] font-bold text-indigo-400 mb-1 truncate w-16 text-center">${state.userNames.user2}</span>
                                         <div class="flex gap-1">
-                                            <input type="number" value="${p.user2.A ?? ''}" oninput="handleInput(${m.id},'user2','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
-                                            <input type="number" value="${p.user2.B ?? ''}" oninput="handleInput(${m.id},'user2','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
+                                            <input type="number" value="${p.user2?.A ?? ''}" oninput="handleInput(${m.id},'user2','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
+                                            <input type="number" value="${p.user2?.B ?? ''}" oninput="handleInput(${m.id},'user2','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
                                         </div>
                                         <div id="pts-u2-${m.id}"></div>
                                     </div>
@@ -268,7 +479,474 @@
             }
             updateScores();
         }
-        window.onload = load;
+
+        window.onload = async () => {
+            await load();
+        };
+    </script>
+</body>
+</html>, // ⚠️ Recuerda poner tu API Key aquí
+          authDomain: "mundial-c69de.firebaseapp.com",
+          projectId: "mundial-c69de",
+          storageBucket: "mundial-c69de.firebasestorage.app",
+          messagingSenderId: "962037207679",
+          appId: "1:962037207679:web:d6c14bb85331619104654a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const matchesData = [
+            { id: 21, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Portugal", flagA: "🇵🇹", teamB: "Uzbekistán", flagB: "🇺🇿" },
+            { id: 22, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Inglaterra", flagA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", teamB: "Ghana", flagB: "🇬🇭" },
+            { id: 23, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Panamá", flagA: "🇵🇦", teamB: "Croacia", flagB: "🇭🇷" },
+            { id: 24, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Colombia", flagA: "🇨🇴", teamB: "RD Congo", flagB: "🇨🇩" },
+            { id: 25, date: "Miércoles 24 de Junio", group: "Grupo B", teamA: "Suiza", flagA: "🇨🇭", teamB: "Canadá", flagB: "🇨🇦" },
+            { id: 26, date: "Miércoles 24 de Junio", group: "Grupo B", teamA: "Bosnia", flagA: "🇧🇦", teamB: "Catar", flagB: "🇶🇦" },
+            { id: 27, date: "Miércoles 24 de Junio", group: "Grupo C", teamA: "Marruecos", flagA: "🇲🇦", teamB: "Haití", flagB: "🇭🇹" },
+            { id: 28, date: "Miércoles 24 de Junio", group: "Grupo C", teamA: "Escocia", flagA: "🏴󠁧󠁢󠁳🇪", teamB: "Brasil", flagB: "🇧🇷" },
+            { id: 29, date: "Miércoles 24 de Junio", group: "Grupo A", teamA: "Sudáfrica", flagA: "🇿🇦", teamB: "Corea del Sur", flagB: "🇰🇷" },
+            { id: 30, date: "Miércoles 24 de Junio", group: "Grupo A", teamA: "Chequia", flagA: "🇨🇿", teamB: "México", flagB: "🇲🇽" },
+            { id: 31, date: "Jueves 25 de Junio", group: "Grupo E", teamA: "Costa de Marfil", flagA: "🇨🇮", teamB: "Curazao", flagB: "🇨🇼" },
+            { id: 32, date: "Jueves 25 de Junio", group: "Grupo E", teamA: "Alemania", flagA: "🇩🇪", teamB: "Ecuador", flagB: "🇪🇨" },
+            { id: 33, date: "Jueves 25 de Junio", group: "Grupo F", teamA: "Túnez", flagA: "🇹🇳", teamB: "Países Bajos", flagB: "🇳🇱" },
+            { id: 34, date: "Jueves 25 de Junio", group: "Grupo F", teamA: "Japón", flagA: "🇯🇵", teamB: "Suecia", flagB: "🇸🇪" },
+            { id: 35, date: "Jueves 25 de Junio", group: "Grupo D", teamA: "Turquía", flagA: "🇹🇷", teamB: "EE. UU.", flagB: "🇺🇸" },
+            { id: 36, date: "Jueves 25 de Junio", group: "Grupo D", teamA: "Paraguay", flagA: "🇵🇾", teamB: "Australia", flagB: "🇦🇺" },
+            { id: 37, date: "Viernes 26 de Junio", group: "Grupo I", teamA: "Noruega", flagA: "🇳🇴", teamB: "Francia", flagB: "🇫🇷" },
+            { id: 38, date: "Viernes 26 de Junio", group: "Grupo I", teamA: "Senegal", flagA: "🇸🇳", teamB: "Irak", flagB: "🇮🇶" },
+            { id: 39, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Cabo Verde", flagA: "🇨🇻", teamB: "A. Saudita", flagB: "🇸🇦" },
+            { id: 40, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Uruguay", flagA: "🇺🇾", teamB: "España", flagB: "🇪🇸" },
+            { id: 41, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "N. Zelanda", flagA: "🇳🇿", teamB: "Bélgica", flagB: "🇧🇪" },
+            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" }
+        ];
+
+        let state = { adminMode: false, userNames: { user1: "Usuario 1", user2: "Usuario 2" }, predictions: {}, realResults: {} };
+
+        async function save() {
+            try {
+                await setDoc(doc(db, "quiniela", "principal"), state);
+            } catch (error) {
+                console.error("Error guardando en Firebase:", error);
+            }
+        }
+
+        // Exponer funciones al objeto Window para que el HTML pueda usarlas
+        window.manualSave = function() {
+            save();
+            const toast = document.getElementById('toast');
+            toast.style.opacity = "1";
+            toast.style.transform = "translate(-50%, 0)";
+            setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translate(-50%, -20px)"; }, 2000);
+        }
+
+        window.updateNames = function() {
+            state.userNames.user1 = document.getElementById('name-user1').value;
+            state.userNames.user2 = document.getElementById('name-user2').value;
+            save();
+            render(); 
+        }
+
+        window.handleInput = function(matchId, user, team, val) {
+            if (!state.predictions[matchId]) state.predictions[matchId] = { user1: { A: null, B: null }, user2: { A: null, B: null } };
+            state.predictions[matchId][user][team] = val === "" ? null : parseInt(val);
+            save();
+            updateScores();
+        }
+
+        window.handleReal = function(matchId, team, val) {
+            if (!state.realResults[matchId]) state.realResults[matchId] = { A: null, B: null };
+            state.realResults[matchId][team] = val === "" ? null : parseInt(val);
+            save();
+            updateScores();
+        }
+
+        window.toggleAdminMode = function() {
+            state.adminMode = !state.adminMode;
+            updateAdminUI();
+            save();
+            render();
+        }
+
+        window.exportData = function() {
+            const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+            navigator.clipboard.writeText(data);
+            alert("¡Código copiado al portapapeles!");
+        }
+
+        window.importData = function() {
+            const data = prompt("Pega el código de exportación:");
+            if (data) {
+                try { 
+                    state = JSON.parse(decodeURIComponent(escape(atob(data)))); 
+                    save(); 
+                    location.reload(); 
+                }
+                catch (e) { alert("Código no válido"); }
+            }
+        }
+
+        async function load() {
+            try {
+                const snap = await getDoc(doc(db, "quiniela", "principal"));
+                if (snap.exists()) {
+                    state = snap.data();
+                }
+                document.getElementById('name-user1').value = state.userNames.user1;
+                document.getElementById('name-user2').value = state.userNames.user2;
+                updateAdminUI();
+                render();
+            } catch (error) {
+                console.error("Error cargando de Firebase:", error);
+                render(); // Renderizar aunque falle la carga
+            }
+        }
+
+        function updateScores() {
+            let s1 = 0, s2 = 0;
+            matchesData.forEach(m => {
+                const real = state.realResults[m.id];
+                const pred = state.predictions[m.id];
+                if (real && real.A !== null && real.B !== null) {
+                    if (pred) {
+                        s1 += calcPts(pred.user1, real, m.id, 1);
+                        s2 += calcPts(pred.user2, real, m.id, 2);
+                    }
+                    const resDiv = document.getElementById(`res-${m.id}`);
+                    if (resDiv) resDiv.innerText = `REAL: ${real.A} - ${real.B}`;
+                }
+            });
+            document.getElementById('score-user1').innerText = s1;
+            document.getElementById('score-user2').innerText = s2;
+        }
+
+        function calcPts(p, r, mid, uNum) {
+            if (!p || p.A === null || p.B === null) return 0;
+            let pts = 0;
+            if (p.A === r.A && p.B === r.B) pts = 3;
+            else {
+                const pW = p.A > p.B ? 'A' : (p.A < p.B ? 'B' : 'E');
+                const rW = r.A > r.B ? 'A' : (r.A < r.B ? 'B' : 'E');
+                if (pW === rW) pts = 1;
+            }
+            const el = document.getElementById(`pts-u${uNum}-${mid}`);
+            if (el) {
+                el.innerText = pts === 3 ? "🎯 +3" : (pts === 1 ? "👍 +1" : "❌ 0");
+                el.className = `text-[10px] font-black mt-1 px-2 rounded ${pts === 3 ? 'text-emerald-400 bg-emerald-500/10' : (pts === 1 ? 'text-blue-400 bg-blue-500/10' : 'text-rose-400 bg-rose-500/10')}`;
+            }
+            return pts;
+        }
+
+        function updateAdminUI() {
+            const dot = document.getElementById('toggle-dot');
+            const btn = document.getElementById('toggle-admin');
+            if (state.adminMode) { 
+                dot.classList.replace('translate-x-1', 'translate-x-6'); 
+                btn.classList.replace('bg-slate-600', 'bg-amber-600'); 
+            } else { 
+                dot.classList.replace('translate-x-6', 'translate-x-1'); 
+                btn.classList.replace('bg-amber-600', 'bg-slate-600'); 
+            }
+        }
+
+        function render() {
+            const container = document.getElementById('matches-container');
+            container.innerHTML = '';
+            const groups = {};
+            matchesData.forEach(m => { if (!groups[m.date]) groups[m.date] = []; groups[m.date].push(m); });
+
+            for (const date in groups) {
+                let html = `<div class="mb-8"><h2 class="text-xs font-black text-emerald-500 mb-4 border-b border-slate-800 pb-2 uppercase tracking-widest">📅 ${date}</h2><div class="grid gap-4">`;
+                groups[date].forEach(m => {
+                    const p = state.predictions[m.id] || { user1: { A: '', B: '' }, user2: { A: '', B: '' } };
+                    const r = state.realResults[m.id] || { A: '', B: '' };
+                    html += `
+                        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700/50">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">${m.group}</span>
+                                <span id="res-${m.id}" class="text-[10px] font-bold text-amber-500"></span>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-4 items-center">
+                                <div class="flex items-center justify-center gap-4 w-full md:w-1/3">
+                                    <div class="text-center w-1/2">
+                                        <div class="text-2xl">${m.flagA}</div>
+                                        <div class="text-[10px] font-black uppercase truncate">${m.teamA}</div>
+                                    </div>
+                                    <div class="text-slate-700 text-[10px] font-black italic">VS</div>
+                                    <div class="text-center w-1/2">
+                                        <div class="text-2xl">${m.flagB}</div>
+                                        <div class="text-[10px] font-black uppercase truncate">${m.teamB}</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 w-full md:w-2/3 justify-center md:justify-end">
+                                    <div class="bg-slate-900 p-2 rounded-lg border-t-2 border-emerald-500 flex flex-col items-center min-w-[70px]">
+                                        <span class="text-[8px] font-bold text-emerald-400 mb-1 truncate w-16 text-center">${state.userNames.user1}</span>
+                                        <div class="flex gap-1">
+                                            <input type="number" value="${p.user1?.A ?? ''}" oninput="handleInput(${m.id},'user1','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
+                                            <input type="number" value="${p.user1?.B ?? ''}" oninput="handleInput(${m.id},'user1','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
+                                        </div>
+                                        <div id="pts-u1-${m.id}"></div>
+                                    </div>
+                                    <div class="bg-slate-900 p-2 rounded-lg border-t-2 border-indigo-500 flex flex-col items-center min-w-[70px]">
+                                        <span class="text-[8px] font-bold text-indigo-400 mb-1 truncate w-16 text-center">${state.userNames.user2}</span>
+                                        <div class="flex gap-1">
+                                            <input type="number" value="${p.user2?.A ?? ''}" oninput="handleInput(${m.id},'user2','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
+                                            <input type="number" value="${p.user2?.B ?? ''}" oninput="handleInput(${m.id},'user2','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
+                                        </div>
+                                        <div id="pts-u2-${m.id}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="${state.adminMode ? 'flex' : 'hidden'} mt-4 pt-3 border-t border-slate-700 justify-between items-center">
+                                <span class="text-[9px] font-bold text-amber-600">ADMIN REAL:</span>
+                                <div class="flex gap-1">
+                                    <input type="number" value="${r.A ?? ''}" oninput="handleReal(${m.id},'A',this.value)" class="w-7 h-7 bg-amber-500/10 border border-amber-500/20 rounded text-center text-xs text-amber-500 outline-none">
+                                    <input type="number" value="${r.B ?? ''}" oninput="handleReal(${m.id},'B',this.value)" class="w-7 h-7 bg-amber-500/10 border border-amber-500/20 rounded text-center text-xs text-amber-500 outline-none">
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                html += `</div></div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            }
+            updateScores();
+        }
+
+        window.onload = async () => {
+            await load();
+        };
+    </script>
+</body>
+</html>", // ⚠️ Recuerda poner tu API Key aquí
+          authDomain: "mundial-c69de.firebaseapp.com",
+          projectId: "mundial-c69de",
+          storageBucket: "mundial-c69de.firebasestorage.app",
+          messagingSenderId: "962037207679",
+          appId: "1:962037207679:web:d6c14bb85331619104654a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const matchesData = [
+            { id: 21, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Portugal", flagA: "🇵🇹", teamB: "Uzbekistán", flagB: "🇺🇿" },
+            { id: 22, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Inglaterra", flagA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", teamB: "Ghana", flagB: "🇬🇭" },
+            { id: 23, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Panamá", flagA: "🇵🇦", teamB: "Croacia", flagB: "🇭🇷" },
+            { id: 24, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Colombia", flagA: "🇨🇴", teamB: "RD Congo", flagB: "🇨🇩" },
+            { id: 25, date: "Miércoles 24 de Junio", group: "Grupo B", teamA: "Suiza", flagA: "🇨🇭", teamB: "Canadá", flagB: "🇨🇦" },
+            { id: 26, date: "Miércoles 24 de Junio", group: "Grupo B", teamA: "Bosnia", flagA: "🇧🇦", teamB: "Catar", flagB: "🇶🇦" },
+            { id: 27, date: "Miércoles 24 de Junio", group: "Grupo C", teamA: "Marruecos", flagA: "🇲🇦", teamB: "Haití", flagB: "🇭🇹" },
+            { id: 28, date: "Miércoles 24 de Junio", group: "Grupo C", teamA: "Escocia", flagA: "🏴󠁧󠁢󠁳🇪", teamB: "Brasil", flagB: "🇧🇷" },
+            { id: 29, date: "Miércoles 24 de Junio", group: "Grupo A", teamA: "Sudáfrica", flagA: "🇿🇦", teamB: "Corea del Sur", flagB: "🇰🇷" },
+            { id: 30, date: "Miércoles 24 de Junio", group: "Grupo A", teamA: "Chequia", flagA: "🇨🇿", teamB: "México", flagB: "🇲🇽" },
+            { id: 31, date: "Jueves 25 de Junio", group: "Grupo E", teamA: "Costa de Marfil", flagA: "🇨🇮", teamB: "Curazao", flagB: "🇨🇼" },
+            { id: 32, date: "Jueves 25 de Junio", group: "Grupo E", teamA: "Alemania", flagA: "🇩🇪", teamB: "Ecuador", flagB: "🇪🇨" },
+            { id: 33, date: "Jueves 25 de Junio", group: "Grupo F", teamA: "Túnez", flagA: "🇹🇳", teamB: "Países Bajos", flagB: "🇳🇱" },
+            { id: 34, date: "Jueves 25 de Junio", group: "Grupo F", teamA: "Japón", flagA: "🇯🇵", teamB: "Suecia", flagB: "🇸🇪" },
+            { id: 35, date: "Jueves 25 de Junio", group: "Grupo D", teamA: "Turquía", flagA: "🇹🇷", teamB: "EE. UU.", flagB: "🇺🇸" },
+            { id: 36, date: "Jueves 25 de Junio", group: "Grupo D", teamA: "Paraguay", flagA: "🇵🇾", teamB: "Australia", flagB: "🇦🇺" },
+            { id: 37, date: "Viernes 26 de Junio", group: "Grupo I", teamA: "Noruega", flagA: "🇳🇴", teamB: "Francia", flagB: "🇫🇷" },
+            { id: 38, date: "Viernes 26 de Junio", group: "Grupo I", teamA: "Senegal", flagA: "🇸🇳", teamB: "Irak", flagB: "🇮🇶" },
+            { id: 39, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Cabo Verde", flagA: "🇨🇻", teamB: "A. Saudita", flagB: "🇸🇦" },
+            { id: 40, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Uruguay", flagA: "🇺🇾", teamB: "España", flagB: "🇪🇸" },
+            { id: 41, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "N. Zelanda", flagA: "🇳🇿", teamB: "Bélgica", flagB: "🇧🇪" },
+            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" }
+        ];
+
+        let state = { adminMode: false, userNames: { user1: "Usuario 1", user2: "Usuario 2" }, predictions: {}, realResults: {} };
+
+        async function save() {
+            try {
+                await setDoc(doc(db, "quiniela", "principal"), state);
+            } catch (error) {
+                console.error("Error guardando en Firebase:", error);
+            }
+        }
+
+        // Exponer funciones al objeto Window para que el HTML pueda usarlas
+        window.manualSave = function() {
+            save();
+            const toast = document.getElementById('toast');
+            toast.style.opacity = "1";
+            toast.style.transform = "translate(-50%, 0)";
+            setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translate(-50%, -20px)"; }, 2000);
+        }
+
+        window.updateNames = function() {
+            state.userNames.user1 = document.getElementById('name-user1').value;
+            state.userNames.user2 = document.getElementById('name-user2').value;
+            save();
+            render(); 
+        }
+
+        window.handleInput = function(matchId, user, team, val) {
+            if (!state.predictions[matchId]) state.predictions[matchId] = { user1: { A: null, B: null }, user2: { A: null, B: null } };
+            state.predictions[matchId][user][team] = val === "" ? null : parseInt(val);
+            save();
+            updateScores();
+        }
+
+        window.handleReal = function(matchId, team, val) {
+            if (!state.realResults[matchId]) state.realResults[matchId] = { A: null, B: null };
+            state.realResults[matchId][team] = val === "" ? null : parseInt(val);
+            save();
+            updateScores();
+        }
+
+        window.toggleAdminMode = function() {
+            state.adminMode = !state.adminMode;
+            updateAdminUI();
+            save();
+            render();
+        }
+
+        window.exportData = function() {
+            const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+            navigator.clipboard.writeText(data);
+            alert("¡Código copiado al portapapeles!");
+        }
+
+        window.importData = function() {
+            const data = prompt("Pega el código de exportación:");
+            if (data) {
+                try { 
+                    state = JSON.parse(decodeURIComponent(escape(atob(data)))); 
+                    save(); 
+                    location.reload(); 
+                }
+                catch (e) { alert("Código no válido"); }
+            }
+        }
+
+        async function load() {
+            try {
+                const snap = await getDoc(doc(db, "quiniela", "principal"));
+                if (snap.exists()) {
+                    state = snap.data();
+                }
+                document.getElementById('name-user1').value = state.userNames.user1;
+                document.getElementById('name-user2').value = state.userNames.user2;
+                updateAdminUI();
+                render();
+            } catch (error) {
+                console.error("Error cargando de Firebase:", error);
+                render(); // Renderizar aunque falle la carga
+            }
+        }
+
+        function updateScores() {
+            let s1 = 0, s2 = 0;
+            matchesData.forEach(m => {
+                const real = state.realResults[m.id];
+                const pred = state.predictions[m.id];
+                if (real && real.A !== null && real.B !== null) {
+                    if (pred) {
+                        s1 += calcPts(pred.user1, real, m.id, 1);
+                        s2 += calcPts(pred.user2, real, m.id, 2);
+                    }
+                    const resDiv = document.getElementById(`res-${m.id}`);
+                    if (resDiv) resDiv.innerText = `REAL: ${real.A} - ${real.B}`;
+                }
+            });
+            document.getElementById('score-user1').innerText = s1;
+            document.getElementById('score-user2').innerText = s2;
+        }
+
+        function calcPts(p, r, mid, uNum) {
+            if (!p || p.A === null || p.B === null) return 0;
+            let pts = 0;
+            if (p.A === r.A && p.B === r.B) pts = 3;
+            else {
+                const pW = p.A > p.B ? 'A' : (p.A < p.B ? 'B' : 'E');
+                const rW = r.A > r.B ? 'A' : (r.A < r.B ? 'B' : 'E');
+                if (pW === rW) pts = 1;
+            }
+            const el = document.getElementById(`pts-u${uNum}-${mid}`);
+            if (el) {
+                el.innerText = pts === 3 ? "🎯 +3" : (pts === 1 ? "👍 +1" : "❌ 0");
+                el.className = `text-[10px] font-black mt-1 px-2 rounded ${pts === 3 ? 'text-emerald-400 bg-emerald-500/10' : (pts === 1 ? 'text-blue-400 bg-blue-500/10' : 'text-rose-400 bg-rose-500/10')}`;
+            }
+            return pts;
+        }
+
+        function updateAdminUI() {
+            const dot = document.getElementById('toggle-dot');
+            const btn = document.getElementById('toggle-admin');
+            if (state.adminMode) { 
+                dot.classList.replace('translate-x-1', 'translate-x-6'); 
+                btn.classList.replace('bg-slate-600', 'bg-amber-600'); 
+            } else { 
+                dot.classList.replace('translate-x-6', 'translate-x-1'); 
+                btn.classList.replace('bg-amber-600', 'bg-slate-600'); 
+            }
+        }
+
+        function render() {
+            const container = document.getElementById('matches-container');
+            container.innerHTML = '';
+            const groups = {};
+            matchesData.forEach(m => { if (!groups[m.date]) groups[m.date] = []; groups[m.date].push(m); });
+
+            for (const date in groups) {
+                let html = `<div class="mb-8"><h2 class="text-xs font-black text-emerald-500 mb-4 border-b border-slate-800 pb-2 uppercase tracking-widest">📅 ${date}</h2><div class="grid gap-4">`;
+                groups[date].forEach(m => {
+                    const p = state.predictions[m.id] || { user1: { A: '', B: '' }, user2: { A: '', B: '' } };
+                    const r = state.realResults[m.id] || { A: '', B: '' };
+                    html += `
+                        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700/50">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">${m.group}</span>
+                                <span id="res-${m.id}" class="text-[10px] font-bold text-amber-500"></span>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-4 items-center">
+                                <div class="flex items-center justify-center gap-4 w-full md:w-1/3">
+                                    <div class="text-center w-1/2">
+                                        <div class="text-2xl">${m.flagA}</div>
+                                        <div class="text-[10px] font-black uppercase truncate">${m.teamA}</div>
+                                    </div>
+                                    <div class="text-slate-700 text-[10px] font-black italic">VS</div>
+                                    <div class="text-center w-1/2">
+                                        <div class="text-2xl">${m.flagB}</div>
+                                        <div class="text-[10px] font-black uppercase truncate">${m.teamB}</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 w-full md:w-2/3 justify-center md:justify-end">
+                                    <div class="bg-slate-900 p-2 rounded-lg border-t-2 border-emerald-500 flex flex-col items-center min-w-[70px]">
+                                        <span class="text-[8px] font-bold text-emerald-400 mb-1 truncate w-16 text-center">${state.userNames.user1}</span>
+                                        <div class="flex gap-1">
+                                            <input type="number" value="${p.user1?.A ?? ''}" oninput="handleInput(${m.id},'user1','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
+                                            <input type="number" value="${p.user1?.B ?? ''}" oninput="handleInput(${m.id},'user1','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-emerald-400">
+                                        </div>
+                                        <div id="pts-u1-${m.id}"></div>
+                                    </div>
+                                    <div class="bg-slate-900 p-2 rounded-lg border-t-2 border-indigo-500 flex flex-col items-center min-w-[70px]">
+                                        <span class="text-[8px] font-bold text-indigo-400 mb-1 truncate w-16 text-center">${state.userNames.user2}</span>
+                                        <div class="flex gap-1">
+                                            <input type="number" value="${p.user2?.A ?? ''}" oninput="handleInput(${m.id},'user2','A',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
+                                            <input type="number" value="${p.user2?.B ?? ''}" oninput="handleInput(${m.id},'user2','B',this.value)" class="w-7 h-8 bg-slate-800 rounded text-center text-xs font-bold outline-none text-indigo-400">
+                                        </div>
+                                        <div id="pts-u2-${m.id}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="${state.adminMode ? 'flex' : 'hidden'} mt-4 pt-3 border-t border-slate-700 justify-between items-center">
+                                <span class="text-[9px] font-bold text-amber-600">ADMIN REAL:</span>
+                                <div class="flex gap-1">
+                                    <input type="number" value="${r.A ?? ''}" oninput="handleReal(${m.id},'A',this.value)" class="w-7 h-7 bg-amber-500/10 border border-amber-500/20 rounded text-center text-xs text-amber-500 outline-none">
+                                    <input type="number" value="${r.B ?? ''}" oninput="handleReal(${m.id},'B',this.value)" class="w-7 h-7 bg-amber-500/10 border border-amber-500/20 rounded text-center text-xs text-amber-500 outline-none">
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                html += `</div></div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            }
+            updateScores();
+        }
+
+        window.onload = async () => {
+            await load();
+        };
     </script>
 </body>
 </html>
