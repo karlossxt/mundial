@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiniela Mundial 2026</titleinitializeApp >
+    <title>Quiniela Mundial 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         input[type=number]::-webkit-inner-spin-button, 
@@ -77,10 +77,10 @@
 
     <!-- SCRIPT ÚNICO TIPO MÓDULO -->
     <script type="module">
+        // ¡Versión 10.12.2 de Firebase (Súper estable)!
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import {
-          getFirestore, doc, getDoc, setDoc
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
         const firebaseConfig = {
           apiKey: "AIzaSyBBTCdM3rb8TB3dJMmzPy4VWkVqo-nclW0", 
           authDomain: "mundial-c69de.firebaseapp.com",
@@ -194,7 +194,7 @@
                 render();
             } catch (error) {
                 console.error("Error cargando de Firebase:", error);
-                render(); 
+                render(); // Aún si Firebase falla, dibujaremos la página visualmente
             }
         }
 
