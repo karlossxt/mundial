@@ -77,7 +77,6 @@
 
     <!-- SCRIPT ÚNICO TIPO MÓDULO -->
     <script type="module">
-        // ¡Versión 10.12.2 de Firebase (Súper estable)!
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -186,15 +185,21 @@
             try {
                 const snap = await getDoc(doc(db, "quiniela", "principal"));
                 if (snap.exists()) {
-                    state = snap.data();
+                    const data = snap.data();
+                    // Fusionamos los datos de Firebase con seguridad
+                    state.adminMode = data.adminMode ?? false;
+                    state.userNames = data.userNames ?? { user1: "Usuario 1", user2: "Usuario 2" };
+                    state.predictions = data.predictions ?? {};
+                    state.realResults = data.realResults ?? {};
                 }
+            } catch (error) {
+                console.error("Error conectando con Firebase:", error);
+            } finally {
+                // Esto se ejecuta SÍ o SÍ, aunque Firebase falle
                 document.getElementById('name-user1').value = state.userNames.user1;
                 document.getElementById('name-user2').value = state.userNames.user2;
                 updateAdminUI();
                 render();
-            } catch (error) {
-                console.error("Error cargando de Firebase:", error);
-                render(); // Aún si Firebase falla, dibujaremos la página visualmente
             }
         }
 
@@ -308,9 +313,8 @@
             updateScores();
         }
 
-        window.onload = async () => {
-            await load();
-        };
+        // Llamamos a load INMEDIATAMENTE (sin esperar al window.onload)
+        load();
     </script>
 </body>
 </html>
