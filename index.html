@@ -75,7 +75,6 @@
         <div id="matches-container" class="space-y-8"></div>
     </main>
 
-    <!-- SCRIPT ÚNICO TIPO MÓDULO -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -114,7 +113,7 @@
             { id: 39, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Cabo Verde", flagA: "🇨🇻", teamB: "A. Saudita", flagB: "🇸🇦" },
             { id: 40, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Uruguay", flagA: "🇺🇾", teamB: "España", flagB: "🇪🇸" },
             { id: 41, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "N. Zelanda", flagA: "🇳🇿", teamB: "Bélgica", flagB: "🇧🇪" },
-            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" }
+            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" }, // Se añadió la coma aquí
             { id: 43, date: "Sábado 27 de Junio", group: "Grupo L", teamA: "Panamá", flagA: "🇵🇦", teamB: "Inglaterra", flagB: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
             { id: 44, date: "Sábado 27 de Junio", group: "Grupo L", teamA: "Croacia", flagA: "🇭🇷", teamB: "Ghana", flagB: "🇬🇭" },
             { id: 45, date: "Sábado 27 de Junio", group: "Grupo K", teamA: "Colombia", flagA: "🇨🇴", teamB: "Portugal", flagB: "🇵🇹" },
@@ -125,16 +124,9 @@
 
         let state = { adminMode: false, userNames: { user1: "Usuario 1", user2: "Usuario 2" }, predictions: {}, realResults: {} };
 
-        async function save() {
-            try {
-                await setDoc(doc(db, "quiniela", "principal"), state);
-            } catch (error) {
-                console.error("Error guardando en Firebase:", error);
-            }
-        }
-
-        window.manualSave = function() {
-            save();
+        // Exportar funciones al objeto global window para que los onclick funcionen
+        window.manualSave = async function() {
+            await save();
             const toast = document.getElementById('toast');
             toast.style.opacity = "1";
             toast.style.transform = "translate(-50%, 0)";
@@ -187,12 +179,19 @@
             }
         }
 
+        async function save() {
+            try {
+                await setDoc(doc(db, "quiniela", "principal"), state);
+            } catch (error) {
+                console.error("Error guardando en Firebase:", error);
+            }
+        }
+
         async function load() {
             try {
                 const snap = await getDoc(doc(db, "quiniela", "principal"));
                 if (snap.exists()) {
                     const data = snap.data();
-                    // Fusionamos los datos de Firebase con seguridad
                     state.adminMode = data.adminMode ?? false;
                     state.userNames = data.userNames ?? { user1: "Usuario 1", user2: "Usuario 2" };
                     state.predictions = data.predictions ?? {};
@@ -201,7 +200,6 @@
             } catch (error) {
                 console.error("Error conectando con Firebase:", error);
             } finally {
-                // Esto se ejecuta SÍ o SÍ, aunque Firebase falle
                 document.getElementById('name-user1').value = state.userNames.user1;
                 document.getElementById('name-user2').value = state.userNames.user2;
                 updateAdminUI();
@@ -248,11 +246,15 @@
             const dot = document.getElementById('toggle-dot');
             const btn = document.getElementById('toggle-admin');
             if (state.adminMode) { 
-                dot.classList.replace('translate-x-1', 'translate-x-6'); 
-                btn.classList.replace('bg-slate-600', 'bg-amber-600'); 
+                dot.classList.add('translate-x-6'); 
+                dot.classList.remove('translate-x-1');
+                btn.classList.add('bg-amber-600'); 
+                btn.classList.remove('bg-slate-600');
             } else { 
-                dot.classList.replace('translate-x-6', 'translate-x-1'); 
-                btn.classList.replace('bg-amber-600', 'bg-slate-600'); 
+                dot.classList.add('translate-x-1'); 
+                dot.classList.remove('translate-x-6');
+                btn.classList.add('bg-slate-600'); 
+                btn.classList.remove('bg-amber-600');
             }
         }
 
@@ -319,8 +321,8 @@
             updateScores();
         }
 
-        // Llamamos a load INMEDIATAMENTE (sin esperar al window.onload)
-        load();
+        // Iniciar carga cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', load);
     </script>
 </body>
 </html>
