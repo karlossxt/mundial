@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiniela Mundial 2026</title>
+    <title>Quiniela Mundial 2026 - 16vos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         input[type=number]::-webkit-inner-spin-button, 
@@ -30,7 +30,7 @@
 
     <header class="bg-gradient-to-r from-emerald-600 via-teal-700 to-cyan-800 text-white py-6 px-4 text-center shadow-lg border-b-4 border-emerald-500">
         <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight uppercase">Quiniela 2026</h1>
-        <p class="text-xs mt-1 text-teal-100 font-bold opacity-80">FASE DE GRUPOS • 23 AL 26 DE JUNIO</p>
+        <p class="text-xs mt-1 text-teal-100 font-bold opacity-80">FASE DE GRUPOS Y 16VOS DE FINAL</p>
     </header>
 
     <main class="max-w-5xl mx-auto px-4 mt-6">
@@ -92,6 +92,7 @@
         const db = getFirestore(app);
 
         const matchesData = [
+            // PARTIDOS ANTERIORES (Para conservar puntos)
             { id: 21, date: "Martes 23 de Junio", group: "Grupo K", teamA: "Portugal", flagA: "🇵🇹", teamB: "Uzbekistán", flagB: "🇺🇿" },
             { id: 22, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Inglaterra", flagA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", teamB: "Ghana", flagB: "🇬🇭" },
             { id: 23, date: "Martes 23 de Junio", group: "Grupo L", teamA: "Panamá", flagA: "🇵🇦", teamB: "Croacia", flagB: "🇭🇷" },
@@ -113,18 +114,35 @@
             { id: 39, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Cabo Verde", flagA: "🇨🇻", teamB: "A. Saudita", flagB: "🇸🇦" },
             { id: 40, date: "Viernes 26 de Junio", group: "Grupo H", teamA: "Uruguay", flagA: "🇺🇾", teamB: "España", flagB: "🇪🇸" },
             { id: 41, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "N. Zelanda", flagA: "🇳🇿", teamB: "Bélgica", flagB: "🇧🇪" },
-            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" }, // Se añadió la coma aquí
+            { id: 42, date: "Viernes 26 de Junio", group: "Grupo G", teamA: "Egipto", flagA: "🇪🇬", teamB: "Irán", flagB: "🇮🇷" },
             { id: 43, date: "Sábado 27 de Junio", group: "Grupo L", teamA: "Panamá", flagA: "🇵🇦", teamB: "Inglaterra", flagB: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
             { id: 44, date: "Sábado 27 de Junio", group: "Grupo L", teamA: "Croacia", flagA: "🇭🇷", teamB: "Ghana", flagB: "🇬🇭" },
             { id: 45, date: "Sábado 27 de Junio", group: "Grupo K", teamA: "Colombia", flagA: "🇨🇴", teamB: "Portugal", flagB: "🇵🇹" },
             { id: 46, date: "Sábado 27 de Junio", group: "Grupo K", teamA: "RD Congo", flagA: "🇨🇩", teamB: "Uzbekistán", flagB: "🇺🇿" },
             { id: 47, date: "Sábado 27 de Junio", group: "Grupo J", teamA: "Argelia", flagA: "🇩🇿", teamB: "Austria", flagB: "🇦🇹" },
-            { id: 48, date: "Sábado 27 de Junio", group: "Grupo J", teamA: "Jordania", flagA: "🇯🇴", teamB: "Argentina", flagB: "🇦🇷" }          
+            { id: 48, date: "Sábado 27 de Junio", group: "Grupo J", teamA: "Jordania", flagA: "🇯🇴", teamB: "Argentina", flagB: "🇦🇷" },
+
+            // NUEVOS PARTIDOS: 16VOS DE FINAL
+            { id: 49, date: "Domingo 28 de Junio", group: "16vos - Los Ángeles", teamA: "Sudáfrica", flagA: "🇿🇦", teamB: "Canadá", flagB: "🇨🇦" },
+            { id: 50, date: "Lunes 29 de Junio", group: "16vos - Houston", teamA: "Brasil", flagA: "🇧🇷", teamB: "Japón", flagB: "🇯🇵" },
+            { id: 51, date: "Lunes 29 de Junio", group: "16vos - Boston", teamA: "Alemania", flagA: "🇩🇪", teamB: "Paraguay", flagB: "🇵🇾" },
+            { id: 52, date: "Lunes 29 de Junio", group: "16vos - Monterrey", teamA: "Países Bajos", flagA: "🇳🇱", teamB: "Marruecos", flagB: "🇲🇦" },
+            { id: 53, date: "Martes 30 de Junio", group: "16vos - Dallas", teamA: "Costa de Marfil", flagA: "🇨🇮", teamB: "Noruega", flagB: "🇳🇴" },
+            { id: 54, date: "Martes 30 de Junio", group: "16vos - NY/NJ", teamA: "Francia", flagA: "🇫🇷", teamB: "Suecia", flagB: "🇸🇪" },
+            { id: 55, date: "Martes 30 de Junio", group: "16vos - CDMX", teamA: "México", flagA: "🇲🇽", teamB: "Ecuador", flagB: "🇪🇨" },
+            { id: 56, date: "Miércoles 1 de Julio", group: "16vos - Atlanta", teamA: "Inglaterra", flagA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", teamB: "RD Congo", flagB: "🇨🇩" },
+            { id: 57, date: "Miércoles 1 de Julio", group: "16vos - Seattle", teamA: "Bélgica", flagA: "🇧🇪", teamB: "Senegal", flagB: "🇸🇳" },
+            { id: 58, date: "Miércoles 1 de Julio", group: "16vos - San Francisco", teamA: "EE. UU.", flagA: "🇺🇸", teamB: "Bosnia", flagB: "🇧🇦" },
+            { id: 59, date: "Jueves 2 de Julio", group: "16vos - Los Ángeles", teamA: "España", flagA: "🇪🇸", teamB: "Austria", flagB: "🇦🇹" },
+            { id: 60, date: "Jueves 2 de Julio", group: "16vos - Toronto", teamA: "Portugal", flagA: "🇵🇹", teamB: "Croacia", flagB: "🇭🇷" },
+            { id: 61, date: "Jueves 2 de Julio", group: "16vos - Vancouver", teamA: "Suiza", flagA: "🇨🇭", teamB: "Argelia", flagB: "🇩🇿" },
+            { id: 62, date: "Viernes 3 de Julio", group: "16vos - Dallas", teamA: "Australia", flagA: "🇦🇺", teamB: "Egipto", flagB: "🇪🇬" },
+            { id: 63, date: "Viernes 3 de Julio", group: "16vos - Miami", teamA: "Argentina", flagA: "🇦🇷", teamB: "Cabo Verde", flagB: "🇨🇻" },
+            { id: 64, date: "Viernes 3 de Julio", group: "16vos - Kansas City", teamA: "Colombia", flagA: "🇨🇴", teamB: "Ghana", flagB: "🇬🇭" }
         ];
 
         let state = { adminMode: false, userNames: { user1: "Usuario 1", user2: "Usuario 2" }, predictions: {}, realResults: {} };
 
-        // Exportar funciones al objeto global window para que los onclick funcionen
         window.manualSave = async function() {
             await save();
             const toast = document.getElementById('toast');
@@ -321,7 +339,6 @@
             updateScores();
         }
 
-        // Iniciar carga cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', load);
     </script>
 </body>
