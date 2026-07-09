@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -72,14 +72,14 @@
             </button>
         </section>
 
-                <!-- Navegación rápida -->
+        <!-- Navegación rápida -->
         <div class="flex flex-wrap gap-2 mb-6 justify-center">
             <a href="#section-Jueves9deJulio" class="bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-bold px-4 py-2 rounded-full transition">🔥 Cuartos de Final (Nuevos)</a>
             <a href="#section-Sabado4deJulio" class="bg-emerald-700 hover:bg-emerald-600 text-white text-[10px] font-bold px-4 py-2 rounded-full transition">8vos</a>
             <a href="#section-Domingo28deJunio" class="bg-slate-700 hover:bg-slate-600 text-white text-[10px] font-bold px-4 py-2 rounded-full transition">16vos</a>
             <a href="#section-Martes23deJunio" class="bg-slate-700 hover:bg-slate-600 text-white text-[10px] font-bold px-4 py-2 rounded-full transition">Grupos</a>
         </div>
-<div id="matches-container" class="space-y-8"></div>
+        <div id="matches-container" class="space-y-8"></div>
     </main>
 
     <script type="module">
@@ -155,7 +155,7 @@
             { id: 69, date: "Lunes 6 de Julio", group: "8vos - Dallas", teamA: "Portugal", flagA: "🇵🇹", teamB: "España", flagB: "🇪🇸", time: "13:00", stadium: "Estadio Dallas (Dallas)", tv: "Pase Mundial 2026 (ViX Premium), TUDN, Canal 5, Azteca 7" },
             { id: 70, date: "Lunes 6 de Julio", group: "8vos - Seattle", teamA: "EE. UU.", flagA: "🇺🇸", teamB: "Bélgica", flagB: "🇧🇪", time: "18:00", stadium: "Estadio Seattle (Seattle)", tv: "Pase Mundial 2026 (ViX Premium), TUDN" },
             { id: 71, date: "Martes 7 de Julio", group: "8vos - Atlanta", teamA: "Argentina", flagA: "🇦🇷", teamB: "Egipto", flagB: "🇪🇬", time: "10:00", stadium: "Estadio Atlanta (Atlanta)", tv: "Pase Mundial 2026 (ViX Premium), TUDN, Canal 5, Azteca 7" },
-            { id: 72, date: "Martes 7 de Julio", group: "8vos - Vancouver", teamA: "Suiza", flagA: "🇨🇭", teamB: "Colombia", flagB: "col", time: "14:00", stadium: "Vancouver", tv: "Pase Mundial 2026 (ViX Premium)" },
+            { id: 72, date: "Martes 7 de Julio", group: "8vos - Vancouver", teamA: "Suiza", flagA: "🇨🇭", teamB: "Colombia", flagB: "🇨🇴", time: "14:00", stadium: "Vancouver", tv: "Pase Mundial 2026 (ViX Premium)" },
             { id: 73, date: "Jueves 9 de Julio", group: "Cuartos - Boston", teamA: "Francia", flagA: "🇫🇷", teamB: "Marruecos", flagB: "🇲🇦", time: "14:00", stadium: "Estadio Boston (Foxborough, MA)", tv: "Pase Mundial 2026 (ViX Premium), TUDN" },
             { id: 74, date: "Viernes 10 de Julio", group: "Cuartos - Los Ángeles", teamA: "España", flagA: "🇪🇸", teamB: "Bélgica", flagB: "🇧🇪", time: "13:00", stadium: "Estadio Los Ángeles (Inglewood, CA)", tv: "Pase Mundial 2026 (ViX Premium), TUDN" },
             { id: 75, date: "Sábado 11 de Julio", group: "Cuartos - Miami", teamA: "Noruega", flagA: "🇳🇴", teamB: "Inglaterra", flagB: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", time: "15:00", stadium: "Estadio Miami (Miami Gardens, FL)", tv: "Pase Mundial 2026 (ViX Premium), TUDN" },
@@ -304,13 +304,17 @@
             matchesData.forEach(m => { if (!groups[m.date]) groups[m.date] = []; groups[m.date].push(m); });
 
             for (const date in groups) {
-                const sectionId = date.replace(/[^a-zA-Z0-9]/g, "");
-let html = `<div id="section-${sectionId}" class="mb-8"><h2 class="text-xs font-black text-emerald-500 mb-4 border-b border-slate-800 pb-2 uppercase tracking-widest">📅 ${date}</h2><div class="grid gap-4">`;
+                // Se utiliza una normalización para quitar tildes y caracteres especiales de manera correcta.
+                const sectionId = date
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-zA-Z0-9]/g, "");
+
+                let html = `<div id="section-${sectionId}" class="mb-8"><h2 class="text-xs font-black text-emerald-500 mb-4 border-b border-slate-800 pb-2 uppercase tracking-widest">📅 ${date}</h2><div class="grid gap-4">`;
                 groups[date].forEach(m => {
                     const p = state.predictions[m.id] || { user1: { A: '', B: '' }, user2: { A: '', B: '' } };
                     const r = state.realResults[m.id] || { A: '', B: '' };
                     
-                    // HTML condicional para los detalles del partido (Hora, Estadio y Canales de TV)
                     const infoHtml = m.time ? `
                         <div class="mt-3 pt-2 border-t border-slate-700/40 text-[9px] text-slate-400 flex flex-wrap gap-x-4 gap-y-1 justify-center md:justify-start">
                             <span>🕒 <b>Hora:</b> ${m.time} (Centro MX)</span>
@@ -370,6 +374,16 @@ let html = `<div id="section-${sectionId}" class="mb-8"><h2 class="text-xs font-
                 container.insertAdjacentHTML('beforeend', html);
             }
             updateScores();
+
+            // Desplazamiento manual en caso de que exista un hash en la URL al renderizar los datos
+            if (window.location.hash) {
+                const targetEl = document.getElementById(window.location.hash.substring(1));
+                if (targetEl) {
+                    setTimeout(() => {
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
+                }
+            }
         }
 
         document.addEventListener('DOMContentLoaded', load);
